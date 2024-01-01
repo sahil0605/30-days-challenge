@@ -1,0 +1,28 @@
+#include <iostream>
+#include <algorithm>
+class Solution {
+public:
+    int minimizeSet(int divisor1, int divisor2, int uniqueCnt1, int uniqueCnt2) {
+        //giving them a shorter name 
+        int d1 =divisor1 , d2 = divisor2 , u1 = uniqueCnt1 , u2 = uniqueCnt2;
+        //lcm of d1 and d2
+        long l = ((long long)d1*d2)/ __gcd(d1, d2) ;
+        //two pointer 
+        long left = u1+u2, right = INT_MAX;
+        int ans=INT_MAX;
+        while(left <= right){
+            int mid = left+(right-left)/2;
+            int a = mid - (mid/d1); //numbers not divisible by d1
+            int b = mid - (mid/d2); //numbers not divisible by d2
+            int c = mid - (mid/l); //divisible by both d1 and d2
+            if(a >= u1 && b >= u2 && c>= u1+u2){
+                ans = mid;
+                right = mid-1;
+            }else{
+                left = mid +1;
+            }
+
+        }
+        return ans;
+    }
+};
