@@ -1,0 +1,25 @@
+class Solution {
+public:
+   void f(int idx ,string digits, vector<string>&ans ,string temp, string mapping[] ){
+       if(idx >= digits.size()){
+           ans.push_back(temp);
+           return;
+       }
+       int number = digits[idx]-'0';
+       string value = mapping[number];
+       for(int i=0;i<value.size();i++){
+           temp += value[i];
+           f(idx+1,digits,ans,temp,mapping);
+           temp.pop_back();
+       }
+   }
+    vector<string> letterCombinations(string digits) {
+        if(digits.size()==0)return {};
+        vector<string>ans;
+        string temp ;
+        string mapping[10] = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        f(0,digits,ans,temp,mapping);
+        return ans ;
+
+    }
+};
